@@ -4,6 +4,12 @@
 Steps:
 
 1.- Clone repository
-2.- run php artisan migrate:fresh --seed
-3.- run php artisan passport:install
-4.- Ask for credentials to log in
+2.- cd into your project
+3.- run composer install
+4.- run npm install
+5-. run php artisan key:generate
+6.- Create an empty database for the application
+7.- In the .env file, add database information to allow Laravel to connect to the database
+8.- run php artisan migrate:fresh --seed
+9.- run php artisan passport:install
+10.- Ask for credentials to log in

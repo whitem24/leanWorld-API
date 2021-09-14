@@ -1,5 +1,5 @@
 # leanWorld-API
- Api de nesher academy. Backend
+ Back-end nesher academy
 
 Steps:
 

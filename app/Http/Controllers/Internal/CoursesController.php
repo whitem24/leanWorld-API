@@ -29,14 +29,17 @@ class CoursesController extends Controller
         //User_roles_courses
         $role_user = Role_has_user::where('user_id', $user_id)->where('role_id', $role)->first();
         $ids = User_role_course::where('user_role_id',$role_user->id)->pluck('course_id')->toArray();
-        $courses = Course::with('chapters','categories','roles_has_users')
+        $courses = Course::with('chapters','categories','roles_has_users','chapters.activities')
         ->when($search, function  ($q) use ($search) { 
             return $q->where(DB::raw('lower(title)'), 'like', '%' . strtolower(trim($search)) . '%');
         })
         ->whereIn('id', $ids)
         ->orderBy('created_at')
         ->paginate($paginate);
+       /*  return response()->json($courses, 200); */
         foreach($courses as $c => $course){
+           /* return response()->json($course->chapters->documents, 200); */
+           /* $activities = array(); */
            $chapters_count[$c] = $course->chapters->count();
            $categories_count[$c] = $course->categories->count();
            $course->may_delete = 1;
@@ -59,7 +62,7 @@ class CoursesController extends Controller
            $course->categories_count =  $categories_count[$c];
 
         }
-        return response()->json($courses, 200);
+        /* return response()->json($activities, 200); */
         if($courses){
             return response()->json($courses, 200);
         }
@@ -201,7 +204,10 @@ class CoursesController extends Controller
     public function edit($slug)
     {
         
-        $course = Course::with('type_course','categories','discounts','chapters.certificates')->where('slug', $slug)->first();
+        $course = Course::with(['type_course','categories','discounts','chapters','chapters.activities' => function ($q) { 
+            $q->orderBy('pivot_order');
+            }])
+                ->where('slug', $slug)->first();
         $type_courses = Type_course::all();
         $categories = Category::all();
 

@@ -17,12 +17,12 @@ class CreateQuestionsTable extends Migration
             $table->id();
             $table->string('title');
             $table->integer('order');
-            $table->unsignedBigInteger('questionnaires_id');
+            $table->unsignedBigInteger('activity_id');
             $table->unsignedBigInteger('type_questions_id');
             $table->timestamps();
             $table->softDeletes();
 
-            $table->foreign('questionnaires_id')->references('id')->on('questionnaires')->onDelete('cascade');
+            $table->foreign('activity_id')->references('id')->on('activities')->onDelete('cascade');
             $table->foreign('type_questions_id')->references('id')->on('type_questions')->onDelete('cascade');
         });
     }

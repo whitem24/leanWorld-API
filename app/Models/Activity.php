@@ -12,13 +12,27 @@ class Activity extends Model
     use SoftDeletes;
 
     protected $fillable = [
-        'title','description',        
+        'title','description','type_activity_id'      
     ];
     protected $dates= [
         'created_at', 'updated_at', 'deleted_at'
     ];
-    public function type_activities()
+    protected $table = "activities";
+
+    public function type_activity()
     {
-        return $this->hasMany(Type_activity::class);
+        return $this->belongsTo(Type_activity::class);
+    }
+    public function chapters()
+    {
+        return $this->belongsToMany(Chapter::class)->withPivot('content', 'order', 'path', 'duration', 'link', 'schedule')/* ->using(Activity_chapter::class) */;
+    }
+    public function templates()
+    {
+        return $this->morphToMany(Template::class, 'templateable');
+    }
+    public function questions()
+    {
+        return $this->hasMany(Question::class);
     }
 }

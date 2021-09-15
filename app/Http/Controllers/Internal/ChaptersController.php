@@ -1,15 +1,16 @@
 <?php
 
 namespace App\Http\Controllers\Internal;
-
 use Illuminate\Http\Request;
+
 use App\Http\Controllers\Controller;
 use Validator;
 use DB;
-use App\Models\Type_questionnaire;
+use App\Models\Chapter;
 
-class TypeQuestionnairesController extends Controller
+class ChaptersController extends Controller
 {
+    
     /**
      * Display a listing of the resource.
      *
@@ -17,12 +18,12 @@ class TypeQuestionnairesController extends Controller
      */
     public function index()
     {
-        $types = Type_questionnaire::all();
+        $chapters = Chapter::all();
 
-        if($types){
-            return response()->json($types, 200);
+        if($chapters){
+            return response()->json($chapters, 200);
         }
-        return response()->json(['message' => 'Type questionnaires not found!'], 404);
+        return response()->json(['message' => 'Chapters not found!'], 404);
     
     
     }
@@ -47,21 +48,24 @@ class TypeQuestionnairesController extends Controller
     {
         
         $validator = Validator::make($request->all(), [
-            'description' => 'required|unique:type_questionnaires,description,NULL,id,deleted_at,NULL',
+            'description' => 'required|unique:chapters,description,NULL,id,deleted_at,NULL',
+            'course_id' => 'required|numeric',
         ]);
         if($validator->fails()){
             return response()->json([
                 'error' => $validator->messages()], 404);
         }else{
             $description = $request->input('description');
-            $type = new Type_questionnaire;
-            $type->description = $description;
+            $course_id = $request->input('course_id');
+            $chapter = new Chapter;
+            $chapter->description = $description;
+            $chapter->course_id = $course_id;
             
 
-            if($type->save()){
-                return response()->json(['message' => 'Successfully created type questionnaire!'], 200);                
+            if($chapter->save()){
+                return response()->json(['message' => 'Successfully created chapter!'], 200);                
             }
-            return response()->json(['message' => 'Type questionnaire was not created!'], 404);
+            return response()->json(['message' => 'Chapter was not created!'], 404);
 
         }
     }
@@ -75,12 +79,12 @@ class TypeQuestionnairesController extends Controller
     public function show($id)
     {
         
-        $type = Type_questionnaire::find($id);
+        $chapter = Chapter::find($id);
 
-        if($type){
-            return response()->json($type, 200);
+        if($chapter){
+            return response()->json($chapter, 200);
         }
-        return response()->json(['message' => 'Type questionnaire not found!'], 404);
+        return response()->json(['message' => 'Chapter not found!'], 404);
     }
 
     /**
@@ -92,12 +96,12 @@ class TypeQuestionnairesController extends Controller
     public function edit($id)
     {
         
-        $type = Type_questionnaire::find($id);
+        $chapter = Chapter::find($id);
 
-        if($type){
-            return response()->json($type, 200);
+        if($chapter){
+            return response()->json($chapter, 200);
         }
-        return response()->json(['message' => 'Type questionnaire not found!'], 404);
+        return response()->json(['message' => 'Chapter not found!'], 404);
     }
 
     /**
@@ -110,8 +114,8 @@ class TypeQuestionnairesController extends Controller
     public function update(Request $request, $id)
     {
         
-        $type = Type_questionnaire::find($id);
-        $unique = $type->description == $request->description ? '' : 'unique:type_questionnaires,description,{$id},id,deleted_at,NULL';
+        $chapter = Chapter::find($id);
+        $unique = $chapter->description == $request->description ? '' : 'unique:chapters,description,{$id},id,deleted_at,NULL';
         $validator = Validator::make($request->all(), [
             'description' => 'required|'.$unique
         ]);
@@ -120,12 +124,12 @@ class TypeQuestionnairesController extends Controller
                 'error' => $validator->messages()], 404);
         }else{
             $description = $request->input('description');
-            $type->description = $description;
+            $chapter->description = $description;
 
-            if($type->save()){
-                return response()->json(['message' => 'Successfully updated type questionnaire!'], 200);                
+            if($chapter->save()){
+                return response()->json(['message' => 'Successfully updated chapter!'], 200);                
             }
-            return response()->json(['message' => 'Type questionnaire was not updated!'], 404);
+            return response()->json(['message' => 'Chapter was not updated!'], 404);
 
         }
     }
@@ -138,12 +142,11 @@ class TypeQuestionnairesController extends Controller
      */
     public function destroy($id)
     {
-        $type = Type_questionnaire::find($id);
-        if($type->delete()){
-          return response()->json(['message' => 'Successfully deleted type questionnaire!'], 200);
+        $chapter = Chapter::find($id);
+        if($chapter->delete()){
+          return response()->json(['message' => 'Successfully deleted chapter!'], 200);
         }
-        return response()->json(['error' => 'Type questionnaire was not deleted!'], 404);
+        return response()->json(['error' => 'Chapter was not deleted!'], 404);
 
     }
-   
 }

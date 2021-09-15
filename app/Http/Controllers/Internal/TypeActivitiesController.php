@@ -36,11 +36,6 @@ class TypeActivitiesController extends Controller
      */
     public function create()
     {
-        $activities = Activity::all();
-        if($activities){
-            return response()->json($activities, 200);
-        }
-        return response()->json(['message' => 'Activities not found!'], 404);
         
     }
 
@@ -54,23 +49,18 @@ class TypeActivitiesController extends Controller
     {
         
         $validator = Validator::make($request->all(), [
-            'activity_id' => 'required|numeric',
-            'activiteable_type' => 'required',
-            'activiteable_id' => 'required|numeric',
-            
+            'title' => 'required',
+            'description' => 'required',     
         ]);
         if($validator->fails()){
             return response()->json([
                 'error' => $validator->messages()], 404);
         }else{
-            $activity_id = $request->input('activity_id');
-            $activiteable_type = $request->input('activiteable_type');
-            $activiteable_id = $request->input('activiteable_id');
+            $title = $request->input('title');
+            $description = $request->input('description');
             $type = new Type_activity;
-            $type->activity_id = $activity_id;
-            $type->activiteable_type = $activiteable_type;
-            $type->activiteable_id = $activiteable_id;
-            
+            $type->title = $title;
+            $type->description = $description;            
 
             if($type->save()){
                 return response()->json(['message' => 'Successfully created type activity!'], 200);                
@@ -89,7 +79,7 @@ class TypeActivitiesController extends Controller
     public function show($id)
     {
         
-        $type = Type_activity::with('activity')->where('id',$id)->first();
+        $type = Type_activity::where('id',$id)->first();
 
         if($type){
             return response()->json($type, 200);
@@ -105,11 +95,10 @@ class TypeActivitiesController extends Controller
      */
     public function edit($id)
     {
-        $type = Type_activity::with('activity')->where('id', $id)->first();
-        $activities = Activity::all();
+        $type = Type_activity::where('id', $id)->first();
 
         if($type){
-            return response()->json(['type_activity' => $type, 'activities' => $activities], 200);
+            return response()->json($type, 200);
         }
         return response()->json(['message' => 'Type activity not found!'], 404);
     }
@@ -126,20 +115,17 @@ class TypeActivitiesController extends Controller
         
         $type = Type_activity::find($id);
         $validator = Validator::make($request->all(), [
-            'activity_id' => 'required|numeric',
-            'activiteable_type' => 'required',
-            'activiteable_id' => 'required|numeric',
+            'title' => 'required',
+            'description' => 'required',
         ]);
         if($validator->fails()){
             return response()->json([
                 'error' => $validator->messages()], 404);
         }else{
-            $activity_id = $request->input('activity_id');
-            $activiteable_type = $request->input('activiteable_type');
-            $activiteable_id = $request->input('activiteable_id');
-            $type->activity_id = $activity_id;
-            $type->activiteable_type = $activiteable_type;
-            $type->activiteable_id = $activiteable_id;
+            $title = $request->input('title');
+            $description = $request->input('description');
+            $type->title = $title;
+            $type->description = $description;
 
             if($type->save()){
                 return response()->json(['message' => 'Successfully updated type activity!'], 200);                

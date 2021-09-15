@@ -45,7 +45,8 @@ class MenusController extends Controller
     {
         $validator = Validator::make($request->all(), [
             'description' => 'required|unique:menus,description,NULL,id,deleted_at,NULL',
-            'description' => 'required|unique:menus,description,NULL,id,deleted_at,NULL',
+            'description_es' => 'required|unique:menus,description_es,NULL,id,deleted_at,NULL',
+            'description_en' => 'required|unique:menus,description_en,NULL,id,deleted_at,NULL',
             'icon' => 'required'
         ]);
         if($validator->fails()){
@@ -53,11 +54,16 @@ class MenusController extends Controller
                 'error' => $validator->messages()], 404);
         }else{
             $description = $request->input('description');
+            $description_es = $request->input('description_es');
+            $description_en = $request->input('description_en');
+
             $icon = $request->input('icon');
             
 
             $menu = new Menu;
             $menu->description = $description;
+            $menu->description_es = $description_es;
+            $menu->description_en = $description_en;
             $menu->icon = $icon;
 
             if($menu->save()){
@@ -111,6 +117,8 @@ class MenusController extends Controller
     {
         $validator = Validator::make($request->all(), [
             'description' => 'required|unique:menus,description,'.$id.',id,deleted_at,NULL',
+            'description_es' => 'required|unique:menus,description_es,'.$id.',id,deleted_at,NULL',
+            'description_en' => 'required|unique:menus,description_en,'.$id.',id,deleted_at,NULL',
             'icon' => 'required'
         ]);
         if($validator->fails()){
@@ -118,6 +126,8 @@ class MenusController extends Controller
                 'error' => $validator->messages()], 404);
         }else{
             $description = $request->input('description');
+            $description_es = $request->input('description_es');
+            $description_en = $request->input('description_en');
             $icon = $request->input('icon');
             
             
@@ -125,6 +135,8 @@ class MenusController extends Controller
             $menu = Menu::find($id);
             $menu->icon = $icon;
             $menu->description = $description;
+            $menu->description_es = $description_es;
+            $menu->description_en = $description_en;
 
             if($menu->save()){
                 return response()->json(['message' => 'Successfully updated menu!'], 200);

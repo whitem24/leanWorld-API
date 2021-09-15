@@ -18,11 +18,11 @@ class Chapter extends Model
         'created_at', 'updated_at', 'deleted_at'
     ];
 
-    public function certificates()
+    /* public function activities()
     {
-        return $this->morphMany(Certificate::class, 'certificateable');
-    }
-    public function contents()
+        return $this->morphMany(Activity::class, 'activitiable');
+    } */
+    /* public function contents()
     {
         return $this->morphMany(Content::class, 'contenteable');
     }
@@ -41,9 +41,14 @@ class Chapter extends Model
     public function questionnaires()
     {
         return $this->morphMany(Questionnaire::class, 'questionnaireable');
-    }
+    } */
     public function course()
     {
         return $this->belongsTo(Course::class);
+    }
+    public function activities()
+    {
+        return $this->belongsToMany(Activity::class)->withPivot('content', 'order', 'path', 'duration', 'link', 'schedule')/* ->using(Activity_chapter::class) */;
+
     }
 }

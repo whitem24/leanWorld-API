@@ -7,8 +7,9 @@ use Illuminate\Http\Request;
 use Validator;
 use DB;
 use App\Models\Activity;
+use App\Models\Type_activity;
 
-class ActivityController extends Controller
+class ActivitiesController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -17,7 +18,7 @@ class ActivityController extends Controller
      */
     public function index()
     {
-        $activity = Activity::all();
+        $activity = Activity::with('type_activity')->get();
 
         if($activity){
             return response()->json($activity, 200);
@@ -32,7 +33,12 @@ class ActivityController extends Controller
      */
     public function create()
     {
-        //
+        $type_activities = Type_activity::all();
+
+        if($type_activities){
+            return response()->json($type_activities, 200);
+        }
+        return response()->json(['message' => 'Type activities not found!'], 404);
     }
 
     /**
@@ -44,8 +50,9 @@ class ActivityController extends Controller
     public function store(Request $request)
     {
         $validator = Validator::make($request->all(), [
-            'title' => 'required|unique:activity,title,NULL,id,deleted_at,NULL',
-            'description' => 'required'
+            'title' => 'required|unique:activities,title,NULL,id,deleted_at,NULL',
+            'description' => 'required',
+            'type_activity_id' => 'required'
         ]);
         if($validator->fails()){
             return response()->json([
@@ -54,10 +61,12 @@ class ActivityController extends Controller
 
             $title = $request->input('title');
             $description = $request->input('description');
+            $type_activity_id = $request->input('type_activity_id');
 
             $activity = new Activity;
             $activity->title = $title;
             $activity->description = $description;
+            $activity->type_activity_id = $type_activity_id;
 
             if($activity->save()){
                 return response()->json(['message' => 'Successfully created activity!'], 200);
@@ -75,7 +84,7 @@ class ActivityController extends Controller
      */
     public function show($id)
     {
-        $activity = Activity::find($id);
+        $activity = Activity::with('type_activity')->find($id);
         
         if($activity){
         	return response()->json($activity, 200);
@@ -91,10 +100,11 @@ class ActivityController extends Controller
      */
     public function edit($id)
     {
-        $activity = Activity::find($id);
+        $type_activities = Type_activity::all();
+        $activity = Activity::with('type_activity')->find($id);
 
         if($activity){
-            return response()->json($activity, 200);
+            return response()->json(['activity' => $activity, 'type_activities' => $type_activities], 200);
         }
         return response()->json(['message' => 'Activity not found!'], 404);
     }
@@ -109,8 +119,9 @@ class ActivityController extends Controller
     public function update(Request $request, $id)
     {
         $validator = Validator::make($request->all(), [
-            'title' => 'required|unique:activity,title,'.$id.',id,deleted_at,NULL',
-            'description' => 'required'
+            'title' => 'required|unique:activities,title,'.$id.',id,deleted_at,NULL',
+            'description' => 'required',
+            'type_activity_id' => 'required'
         ]);
         if($validator->fails()){
             return response()->json([
@@ -119,10 +130,13 @@ class ActivityController extends Controller
 
             $title = $request->input('title');
             $description = $request->input('description');
+            $type_activity_id = $request->input('type_activity_id');
+
 
 			$activity = Activity::find($id);
             $activity->title = $title;
             $activity->description = $description;
+            $activity->type_activity_id = $type_activity_id;
 
             if($activity->save()){
                 return response()->json(['message' => 'Successfully updated Activity!'], 200);

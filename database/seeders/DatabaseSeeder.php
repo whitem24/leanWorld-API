@@ -23,17 +23,17 @@ class DatabaseSeeder extends Seeder
           RolesPermissionsTableSeeder::class,
           UsersRolesTableSeeder::Class,
           LwPaymentModalitySeeder::class,
-          ActivitiesTableSeeder::class,
           CategoriesTableSeeder::class,
           DiscountsTableSeeder::class,
           TypeCoursesTableSeeder::class,
-          TypeCertificatesTableSeeder::class,
+          /* TypeCertificatesTableSeeder::class,
           TypeDocumentsTableSeeder::class,
           TypeLiveSessionsTableSeeder::class,
           TypeMultimediaTableSeeder::class,
-          TypeQuestionnairesTableSeeder::class,
+          TypeQuestionnairesTableSeeder::class, */
           TypeQuestionsTableSeeder::class,
           TypeActivitiesTableSeeder::Class,
+          ActivitiesTableSeeder::class,
           
 
         ]);

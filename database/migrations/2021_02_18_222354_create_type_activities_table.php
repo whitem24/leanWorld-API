@@ -15,13 +15,11 @@ class CreateTypeActivitiesTable extends Migration
     {
         Schema::create('type_activities', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('activity_id');
-            $table->unsignedBigInteger('activiteable_id');
-            $table->string('activiteable_type');
+            $table->string('title');
+            $table->string('description')->nullable();
             $table->timestamps();
             $table->softDeletes();
 
-            $table->foreign('activity_id')->references('id')->on('activities')->onDelete('cascade');
         });
     }
 

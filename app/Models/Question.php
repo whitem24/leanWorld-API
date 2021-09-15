@@ -23,9 +23,9 @@ class Question extends Model
     {
         return $this->belongsToMany(Option::class);
     }
-      public function questionnaire()
+      public function activity()
     {
-        return $this->belongsTo(Questionnaire::class);
+        return $this->belongsTo(Activity::class);
     }
     public function type_question()
     {

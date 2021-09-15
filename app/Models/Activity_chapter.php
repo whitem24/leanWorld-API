@@ -3,23 +3,20 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Database\Eloquent\Model;
 
-class Content extends Model
+class Activity_chapter extends Model
 {
+
     use HasFactory;
     use SoftDeletes;
+
     protected $fillable = [
-        'title','content','order','contenteable_id','contenteable_type'        
+        'content','path','duration','order','link','schedule','chapter_id','activity_id'      
     ];
     protected $dates= [
         'created_at', 'updated_at', 'deleted_at'
     ];
-
-    public function contenteable()
-    {
-        return $this->morphTo();
-    }
-    
+    protected $table = "activity_chapter";
 }

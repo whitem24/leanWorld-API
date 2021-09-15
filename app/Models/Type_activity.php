@@ -13,20 +13,17 @@ class Type_activity extends Model
 
     
     protected $fillable = [
-        'activity_id','activiteable_id','activiteable_type'        
+        'title','description'       
     ];
     protected $dates= [
         'created_at', 'updated_at', 'deleted_at'
     ];
-    public function activity()
-    {
-        return $this->belongsTo(Activity::class);
-    }
     
-    public function activiteable()
-    {
-        return $this->morphTo();
-    }
+    protected $table = "type_activities";
 
+    public function activities()
+    {
+        return $this->hasMany(Activity::class);
+    }  
     
 }

@@ -12,7 +12,7 @@ class Menu extends Model
     use SoftDeletes;
 
     protected $fillable = [
-        'description', 'order', 'icon'      
+        'description', 'description_en', 'description_es', 'order', 'icon'      
     ];
     protected $dates= [
         'created_at', 'updated_at', 'deleted_at'

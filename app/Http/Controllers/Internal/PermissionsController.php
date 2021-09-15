@@ -19,7 +19,7 @@ class PermissionsController extends Controller
     public function index()
     {
         $permissions = DB::table('permissions')
-        ->select('permissions.id', 'permissions.description', 'p.description as parent_name')
+        ->select('permissions.id', 'permissions.description', 'permissions.description_es', 'permissions.description_en', 'p.description as parent_name')
         ->leftjoin('permissions as p', 'p.id', '=', 'permissions.parent_id')
         ->where('permissions.deleted_at', null)
         ->get();
@@ -55,18 +55,24 @@ class PermissionsController extends Controller
     public function store(Request $request)
     {
         $validator = Validator::make($request->all(), [
-            'description' => 'required|unique:permissions,description,NULL,id,deleted_at,NULL'
+            'description' => 'required|unique:permissions,description,NULL,id,deleted_at,NULL',
+            'description_es' => 'required|unique:permissions,description_es,NULL,id,deleted_at,NULL',
+            'description_en' => 'required|unique:permissions,description_en,NULL,id,deleted_at,NULL',
         ]);
         if($validator->fails()){
             return response()->json([
                 'error' => $validator->messages()], 404);
         }else{
             $description = $request->input('description');
+            $description_es = $request->input('description_es');
+            $description_en = $request->input('description_en');
             $parent_id = $request->input('parent')!=='-1' ? $request->input('parent') : NULL;
             $menu_id = $request->input('menu')!=='-1' ? $request->input('menu') : NULL;
 
             $permission = new Permission;
             $permission->description = $description;
+            $permission->description_es = $description_es;
+            $permission->description_en = $description_en;
             $permission->parent_id = $parent_id;            
             $permission->menu_id = $menu_id;
 
@@ -87,7 +93,7 @@ class PermissionsController extends Controller
     public function show($id)
     {
         $permission = DB::table('permissions')
-        ->select('permissions.id', 'permissions.description', 'permissions.parent_id', 'p.description as parent_name')
+        ->select('permissions.id', 'permissions.description', 'permissions.description_es', 'permissions.description_en', 'permissions.parent_id', 'p.description as parent_name')
         ->leftjoin('permissions as p', 'p.id', '=', 'permissions.parent_id')
         ->where('permissions.id', $id)
         ->get();
@@ -128,8 +134,13 @@ class PermissionsController extends Controller
     {
         $permission = Permission::find($id);
         $unique = $permission->description == $request->description ? '' : 'unique:permissions,description,{$id},id,deleted_at,NULL';
+        $unique1 = $permission->description_es == $request->description_es ? '' : 'unique:permissions,description_es,{$id},id,deleted_at,NULL';
+        $unique2 = $permission->description_en == $request->description_en ? '' : 'unique:permissions,description_en,{$id},id,deleted_at,NULL';
         $validator = Validator::make($request->all(), [
-            'description' => 'required|'.$unique
+            'description' => 'required|'.$unique,
+            'description_es' => 'required|'.$unique1,
+            'description_en' => 'required|'.$unique2,
+
         ]);
         if($validator->fails()){
             return response()->json([
@@ -137,11 +148,15 @@ class PermissionsController extends Controller
         }else{
 
             $description = $request->input('description');
+            $description_es = $request->input('description_es');
+            $description_en = $request->input('description_en');
             $parent_id = $request->input('parent')!=='-1' ? $request->input('parent') : NULL;
             $menu_id = $request->input('menu')!=='-1' ? $request->input('menu') : NULL;
 
             //$permission = Permission::find($id);
             $permission->description = $description;
+            $permission->description_es = $description_es;
+            $permission->description_en = $description_en;
             $permission->parent_id = $parent_id;
             $permission->menu_id = $menu_id;
 

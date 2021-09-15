@@ -82,14 +82,24 @@ Route::middleware('auth:api')->group(function() {
     Route::put('/type-courses/{typeId}','Internal\TypeCoursesController@update');
     Route::delete('/type-courses/{typeId}','Internal\TypeCoursesController@destroy');
 
-    //Type Certificates Routes
+    //Activities Routes
     
-    Route::get('/type-certificates','Internal\TypeCertificatesController@index');
-    Route::post('/type-certificates','Internal\TypeCertificatesController@store');
-    Route::get('/type-certificates/{typeId}/edit','Internal\TypeCertificatesController@edit');
-    Route::get('/type-certificates/{typeId}','Internal\TypeCertificatesController@show');
-    Route::put('/type-certificates/{typeId}','Internal\TypeCertificatesController@update');
-    Route::delete('/type-certificates/{typeId}','Internal\TypeCertificatesController@destroy');
+    Route::get('/activities','Internal\ActivitiesController@index');
+    Route::get('/activities/create','Internal\ActivitiesController@create');
+    Route::post('/activities','Internal\ActivitiesController@store');
+    Route::get('/activities/{typeId}/edit','Internal\ActivitiesController@edit');
+    Route::get('/activities/{typeId}','Internal\ActivitiesController@show');
+    Route::put('/activities/{typeId}','Internal\ActivitiesController@update');
+    Route::delete('/activities/{typeId}','Internal\ActivitiesController@destroy');
+
+    //Type Activities Routes
+    
+    Route::get('/type-activities','Internal\TypeActivitiesController@index');
+    Route::post('/type-activities','Internal\TypeActivitiesController@store');
+    Route::get('/type-activities/{typeId}/edit','Internal\TypeActivitiesController@edit');
+    Route::get('/type-activities/{typeId}','Internal\TypeActivitiesController@show');
+    Route::put('/type-activities/{typeId}','Internal\TypeActivitiesController@update');
+    Route::delete('/type-activities/{typeId}','Internal\TypeActivitiesController@destroy');
 
     //Type Documents Routes
     
@@ -154,5 +164,13 @@ Route::middleware('auth:api')->group(function() {
     /* Route::get('/courses/{id}','Internal\CoursesController@show'); */
     Route::put('/courses/{id}','Internal\CoursesController@update');
     Route::delete('/courses/{id}','Internal\CoursesController@destroy');
+
+    //Chapters Routes
+   /*  Route::get('/chapters/{slug}/edit','Internal\ChaptersController@edit')->name('chapters.edit');
+    Route::get('/chapters/{user_id}/{role_id}/{paginate?}/{search?}','Internal\ChaptersController@index')/* ->middleware('throttle:chaptersSearch') */;
+    Route::post('/chapters','Internal\ChaptersController@store'); 
+    /* Route::get('/chapters/{id}','Internal\ChaptersController@show'); */
+    Route::put('/chapters/{id}','Internal\ChaptersController@update');
+    Route::delete('/chapters/{id}','Internal\ChaptersController@destroy'); 
 
 });

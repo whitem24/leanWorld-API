@@ -19,9 +19,9 @@ class Template extends Model
         'created_at', 'updated_at', 'deleted_at'
     ];
 
-    public function certificates()
+    public function activities()
     {
-        return $this->morphedByMany(Certificate::class, 'templateable');
+        return $this->morphedByMany(Activity::class, 'templateable');
     }
     
 }

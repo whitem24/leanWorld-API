@@ -12,7 +12,7 @@ class Permission extends Model
     use SoftDeletes;
 
     protected $fillable = [
-        'description',        
+        'description', 'description_en', 'description_es', 'order', 'parent_id', 'menu_id'       
     ];
     protected $dates= [
         'created_at', 'updated_at', 'deleted_at'
@@ -25,6 +25,17 @@ public function roles()
 public function menu()
 {
         return $this->belongsTo(Menu::class);
+}
+
+public function permissions()
+{
+    return $this->hasMany(Permission::class, 'parent_id');
+}
+
+// recursive relationship
+public function childItems()
+{
+    return $this->hasMany(Permission::class, 'parent_id')->with('permissions');
 }
 
     

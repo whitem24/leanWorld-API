@@ -9,7 +9,7 @@ use DB;
 use App\Models\Question;
 use App\Models\Type_question;
 
-class QuestionController extends Controller
+class QuestionsController extends Controller
 {
     /**
      * Display a listing of the resource.

@@ -18,38 +18,121 @@ class ActivitiesTableSeeder extends Seeder
     {
         DB::table('activities')->insert([
             [  
-                'title'=>'Multimedia',
+                'title'=>'Video',
                 'description' => '',
+                'type_activity_id' => 1,
                 'created_at'=> Carbon::now(),
                 'updated_at'=> Carbon::now()
             ],
             [  
-                'title'=>'Live Sessions',
+                'title'=>'E-book',
                 'description' => '',
+                'type_activity_id' => 1,
                 'created_at'=> Carbon::now(),
                 'updated_at'=> Carbon::now()
             ],
             [  
-                'title'=>'Questionnaires',
+                'title'=>'Youtube',
                 'description' => '',
+                'type_activity_id' => 1,
                 'created_at'=> Carbon::now(),
                 'updated_at'=> Carbon::now()
             ],
             [  
-                'title'=>'Certificates',
+                'title'=>'SoundCloud',
                 'description' => '',
+                'type_activity_id' => 1,
                 'created_at'=> Carbon::now(),
                 'updated_at'=> Carbon::now()
             ],
             [  
-                'title'=>'Contents',
+                'title'=>'Audio',
                 'description' => '',
+                'type_activity_id' => 1,
                 'created_at'=> Carbon::now(),
                 'updated_at'=> Carbon::now()
             ], 
             [  
-                'title'=>'Documents',
+                'title'=>'PDF',
                 'description' => '',
+                'type_activity_id' => 2,
+                'created_at'=> Carbon::now(),
+                'updated_at'=> Carbon::now()
+            ], 
+            [  
+                'title'=>'TXT',
+                'description' => '',
+                'type_activity_id' => 2,
+                'created_at'=> Carbon::now(),
+                'updated_at'=> Carbon::now()
+            ],
+            [  
+                'title'=>'WORD',
+                'description' => '',
+                'type_activity_id' => 2,
+                'created_at'=> Carbon::now(),
+                'updated_at'=> Carbon::now()
+            ],
+            [  
+                'title'=>'Zoom Meeting',
+                'description' => '',
+                'type_activity_id' => 4,
+                'created_at'=> Carbon::now(),
+                'updated_at'=> Carbon::now()
+            ],
+            [  
+                'title'=>'Zoom Webinar',
+                'description' => '',
+                'type_activity_id' => 4,
+                'created_at'=> Carbon::now(),
+                'updated_at'=> Carbon::now()
+            ],
+            [  
+                'title'=>'Webex Meeting',
+                'description' => '',
+                'type_activity_id' => 4,
+                'created_at'=> Carbon::now(),
+                'updated_at'=> Carbon::now()
+            ], 
+            [  
+                'title'=>'Quizz',
+                'description' => '',
+                'type_activity_id' => 3,
+                'created_at'=> Carbon::now(),
+                'updated_at'=> Carbon::now()
+            ], 
+            [  
+                'title'=>'Exam',
+                'description' => '',
+                'type_activity_id' => 3,
+                'created_at'=> Carbon::now(),
+                'updated_at'=> Carbon::now()
+            ],
+            [  
+                'title'=>'Assignment',
+                'description' => '',
+                'type_activity_id' => 3,
+                'created_at'=> Carbon::now(),
+                'updated_at'=> Carbon::now()
+            ],
+            [  
+                'title'=>'File Assignment',
+                'description' => '',
+                'type_activity_id' => 3,
+                'created_at'=> Carbon::now(),
+                'updated_at'=> Carbon::now()
+            ],
+            [  
+                'title'=>'Certificate',
+                'description' => '',
+                'type_activity_id' => 5,
+                'created_at'=> Carbon::now(),
+                'updated_at'=> Carbon::now()
+            ],
+            [  
+                'title'=>'Certificate of completion',
+                'description' => '',
+                'type_activity_id' => 5,
                 'created_at'=> Carbon::now(),
                 'updated_at'=> Carbon::now()
             ], 

@@ -171,6 +171,10 @@ Route::middleware('auth:api')->group(function() {
     Route::post('/chapters','Internal\ChaptersController@store'); 
     /* Route::get('/chapters/{id}','Internal\ChaptersController@show'); */
     Route::put('/chapters/{id}','Internal\ChaptersController@update');
-    Route::delete('/chapters/{id}','Internal\ChaptersController@destroy'); 
+    Route::delete('/chapters/{id}','Internal\ChaptersController@destroy');
+    
+    // Profile Routes
+    Route::get('/profile', 'ProfileController@show');
+    Route::put('/save-profile/{id}', 'ProfileController@update');
 
 });

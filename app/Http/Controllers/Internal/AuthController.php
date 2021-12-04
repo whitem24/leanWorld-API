@@ -3,6 +3,7 @@ namespace App\Http\Controllers\Internal;
 
 use App\Http\Controllers\Controller;
 use App\Models\User;
+use App\Models\Profiles;
 use App\Models\Permission;
 use App\Models\Role;
 use Illuminate\Http\Request;
@@ -24,6 +25,12 @@ class AuthController extends Controller
             'name' => $request->name, 
             'email' => $request->email, 
             'password' => bcrypt($request->password)
+        ]);
+
+        $profile = Profiles::create([
+            'email' => $request->email,
+            'userid' => $user->id,
+            'imagelink' => 'default.png',
         ]);
 
         return response()->json($user);

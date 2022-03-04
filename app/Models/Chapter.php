@@ -48,7 +48,7 @@ class Chapter extends Model
     }
     public function activities()
     {
-        return $this->belongsToMany(Activity::class)->withPivot('content', 'order', 'path', 'duration', 'link', 'schedule')/* ->using(Activity_chapter::class) */;
+        return $this->belongsToMany(Activity::class)->wherePivot('deleted_at', NULL)->withPivot('id','content', 'description', 'order', 'path', 'duration', 'link', 'schedule', 'deleted_at')/* ->using(Activity_chapter::class) */;
 
     }
 }

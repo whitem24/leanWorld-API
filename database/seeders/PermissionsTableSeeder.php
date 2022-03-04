@@ -296,6 +296,51 @@ class PermissionsTableSeeder extends Seeder
                 'created_at'=> Carbon::now(),
                 'updated_at'=> Carbon::now(),
             ),
+            
+            25 =>
+            array (
+                'id' => 26,
+                'description' => 'Courses-enroll',
+                'description_en'=>'See Courses',
+                'description_es'=>'Ver Cursos',
+                'parent_id' => NULL,
+                'menu_id' => 1,
+                'created_at'=> Carbon::now(),
+                'updated_at'=> Carbon::now(),
+            ),
+            /* 26 =>
+            array (
+                'id' => 27,
+                'description' => 'Courses-enroll-buy',
+                'description_en'=>'Menus-show',
+                'description_es'=>'Menus-show',
+                'parent_id' => 3,
+                'menu_id' => NULL,
+                'created_at'=> Carbon::now(),
+                'updated_at'=> Carbon::now(),
+            ),
+            24 =>
+            array (
+                'id' => 25,
+                'description' => 'Menus-show',
+                'description_en'=>'Menus-show',
+                'description_es'=>'Menus-show',
+                'parent_id' => 3,
+                'menu_id' => NULL,
+                'created_at'=> Carbon::now(),
+                'updated_at'=> Carbon::now(),
+            ),
+            24 =>
+            array (
+                'id' => 25,
+                'description' => 'Menus-show',
+                'description_en'=>'Menus-show',
+                'description_es'=>'Menus-show',
+                'parent_id' => 3,
+                'menu_id' => NULL,
+                'created_at'=> Carbon::now(),
+                'updated_at'=> Carbon::now(),
+            ), */
         ));
     }
 }

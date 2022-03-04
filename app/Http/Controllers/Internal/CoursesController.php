@@ -12,6 +12,7 @@ use App\Models\Course;
 use App\Models\User_role_course;
 use App\Models\Role_has_user;
 use App\Models\Category;
+use App\Models\Activity;
 use App\Models\User;
 use Illuminate\Support\Str;
 //use App\Http\Traits\UpdateSessionTrait;
@@ -210,10 +211,12 @@ class CoursesController extends Controller
                 ->where('slug', $slug)->first();
         $type_courses = Type_course::all();
         $categories = Category::all();
+        $activities = Activity::with('type_activity')->get();
+
 
 
         if($course){
-            return response()->json(['course' => $course,'categories' => $categories, 'type_courses' => $type_courses], 200);
+            return response()->json(['course' => $course, 'categories' => $categories, 'activities' => $activities, 'type_courses' => $type_courses], 200);
         }
         return response()->json(['message' => 'Course not found!'], 404);
     }
@@ -314,6 +317,7 @@ class CoursesController extends Controller
             return response()->json(['error' => 'Este curso está siendo usado y no puede ser eliminado'], 400);
         }
         if($course->delete()){
+            Storage::disk('public')->delete('/images/courses/'.$course->cover);
             return response()->json(['message' => 'Successfully deleted Course!'], 200);
         }
         return response()->json(['error' => 'Course was not deleted'], 404);

@@ -13,7 +13,7 @@ class Activity_chapter extends Model
     use SoftDeletes;
 
     protected $fillable = [
-        'content','path','duration','order','link','schedule','chapter_id','activity_id'      
+        'description','content','path','duration','order','link','schedule','chapter_id','activity_id'      
     ];
     protected $dates= [
         'created_at', 'updated_at', 'deleted_at'

@@ -173,4 +173,17 @@ Route::middleware('auth:api')->group(function() {
     Route::put('/chapters/{id}','Internal\ChaptersController@update');
     Route::delete('/chapters/{id}','Internal\ChaptersController@destroy'); 
 
+    
+    //Activities Chapters Routes
+   /*  Route::get('/chapters/{slug}/edit','Internal\ChaptersController@edit')->name('chapters.edit');
+    Route::get('/chapters/{user_id}/{role_id}/{paginate?}/{search?}','Internal\ChaptersController@index')/* ->middleware('throttle:chaptersSearch') */;
+    Route::post('/activities-chapter','Internal\ChapterActivityController@store'); 
+    /* Route::get('/chapters/{id}','Internal\ChapterActivityController@show'); */
+    Route::put('/activities-chapter/{id}','Internal\ChapterActivityController@update');
+    Route::delete('/activities-chapter/{id}','Internal\ChapterActivityController@destroy'); 
+
+    // Courses Enrollment Routes
+    Route::get('/courses-list/{paginate?}/{search?}','Internal\CoursesEnrollmentController@index')/* ->middleware('throttle:coursesSearch') */;
+    
+
 });

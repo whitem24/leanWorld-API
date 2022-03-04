@@ -16,8 +16,8 @@ class CreatePermissionsTable extends Migration
         Schema::create('permissions', function (Blueprint $table) {
             $table->id();
             $table->string('description')->unique();
-            $table->string('description_en')->unique();
-            $table->string('description_es')->unique();
+            $table->string('description_en')/* ->unique() */;
+            $table->string('description_es')/* ->unique() */;
             $table->unsignedBigInteger('parent_id')->nullable();
             $table->unsignedBigInteger('menu_id')->nullable();
             $table->foreign('parent_id')->references('id')->on('permissions')->onDelete('cascade');

@@ -15,6 +15,7 @@ class CreateActivityChaptersTable extends Migration
     {
         Schema::create('activity_chapters', function (Blueprint $table) {
             $table->id();
+            $table->string('description');
             $table->string('content')->nullable();
             $table->integer('order');
             $table->string('path')->nullable();

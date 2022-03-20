@@ -3,6 +3,9 @@
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
+// //Importing profiles controller
+// use App\Http\Controllers\ProfilesController;
+
 /*
 |--------------------------------------------------------------------------
 | API Routes

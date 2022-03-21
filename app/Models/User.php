@@ -52,6 +52,12 @@ class User extends Authenticatable
         $this->notify(new PasswordResetNotification($token));
     }
 
+    public function profile(){
+
+        return $this->hasOne(Profile::class);
+
+    }
+
     public function roles()
     {
         return $this->belongsToMany('App\Models\Role','roles_has_users')->withTimestamps();

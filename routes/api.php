@@ -45,6 +45,9 @@ Route::middleware('auth:api')->group(function() {
     Route::get('/user/modality','PaymentModalityController@index');
     Route::get('/user/modality/{userId}/{courseId}','PaymentModalityController@get_user_course_modality');
     Route::post('/modality/courses','PaymentModalityController@assignModality');
+
+    //Profiles Routes
+    Route::get('/');
     
 
     //Permissions Routes

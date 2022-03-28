@@ -47,8 +47,7 @@ Route::middleware('auth:api')->group(function() {
     Route::post('/modality/courses','PaymentModalityController@assignModality');
 
     //Profiles Routes
-    Route::get('/');
-    
+    Route::get('/profile/{user}', 'ProfilesController@index');
 
     //Permissions Routes
     

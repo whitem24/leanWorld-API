@@ -52,15 +52,15 @@ class User extends Authenticatable
         $this->notify(new PasswordResetNotification($token));
     }
 
-    public function profile(){
-
-        return $this->hasOne(Profile::class);
-
-    }
-
     public function roles()
     {
         return $this->belongsToMany('App\Models\Role','roles_has_users')->withTimestamps();
+    }
+
+    //One to one relationship with profile
+    public function profile()
+    {
+        return $this->hasOne(Profile::class);
     }
 
     public function scopeUpdateSession($query,$user_id)
@@ -70,5 +70,4 @@ class User extends Authenticatable
             $queryI->orderBy('order', 'ASC');
         },])->where('id', $user_id);
     }
-
 }

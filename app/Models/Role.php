@@ -26,7 +26,5 @@ public function permissions()
 {
     return $this->belongsToMany('App\Models\Permission','roles_has_permissions')->withTimestamps();
 }
-
-
 }
 

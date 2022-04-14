@@ -38,16 +38,18 @@ Route::post('register', 'Internal\AuthController@register');
 Route::post('login', 'Internal\AuthController@login');
 Route::post('password/email', 'Internal\ForgotPasswordController@sendResetLinkEmail');
 Route::post('password/reset', 'Internal\ResetPasswordController@reset');
+
 Route::middleware('auth:api')->group(function() {
+
+    //Profiles Routes
+    Route::get('/profiles', 'ProfilesController@index');
+    Route::get('/profiles/{profileId}', 'ProfilesController@show');
 
     Route::get('/actions/users','ActionsController@get_users');
     Route::post('/actions/send-emails','ActionsController@send_email');
     Route::get('/user/modality','PaymentModalityController@index');
     Route::get('/user/modality/{userId}/{courseId}','PaymentModalityController@get_user_course_modality');
     Route::post('/modality/courses','PaymentModalityController@assignModality');
-
-    //Profiles Routes
-    Route::get('/profile/{user}', 'ProfilesController@index');
 
     //Permissions Routes
     

@@ -121,7 +121,6 @@ class UsersController extends Controller
         //dd($results);
        return response()->json(['user' => $result['user'],'courses' => $results], 200);
     }
-    
     public function user(Request $request)
     {
        $result = learnworldsGetRequest('/user/'.$request->userId.'/profile', env('ACCESS_TOKEN'), env('CLIENT_ID'));

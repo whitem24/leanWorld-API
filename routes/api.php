@@ -44,6 +44,8 @@ Route::middleware('auth:api')->group(function() {
     //Profiles Routes
     Route::get('/profiles', 'ProfilesController@index');
     Route::get('/profiles/{profileId}', 'ProfilesController@show');
+    Route::get('/profiles/{profileId}/edit', 'ProfilesController@edit');
+    Route::put('/profiles/{profileId}/update', 'ProfilesController@update');
 
     Route::get('/actions/users','ActionsController@get_users');
     Route::post('/actions/send-emails','ActionsController@send_email');

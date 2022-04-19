@@ -45,6 +45,7 @@ Route::middleware('auth:api')->group(function() {
     Route::get('/profiles', 'ProfilesController@index');
     Route::get('/profiles/{profileId}', 'ProfilesController@show');
     Route::get('/profiles/{profileId}/edit', 'ProfilesController@edit');
+    Route::post('/profiles/{profileId}/add', 'ProfilesController@store');
     Route::put('/profiles/{profileId}/update', 'ProfilesController@update');
 
     Route::get('/actions/users','ActionsController@get_users');

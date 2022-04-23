@@ -107,7 +107,8 @@ class ProfilesController extends Controller
             $explodeImage = explode("image/",$base64Image[0]);
             $imageType = $explodeImage[1];
             $image_base64 = \base64_decode($base64Image[1]);
-            $data->profile_picture = $folderPath . uniqid() .'.'.$imageType;
+            $filename = $request->input("profile_picture_name");
+            $data->profile_picture = $folderPath .$filename;
 
             file_put_contents( $data->profile_picture, $image_base64);
         }

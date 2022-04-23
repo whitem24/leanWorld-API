@@ -34,7 +34,7 @@ class DatabaseSeeder extends Seeder
           TypeQuestionsTableSeeder::class,
           TypeActivitiesTableSeeder::Class,
           ActivitiesTableSeeder::class,
-          
+          ProfilestableSeeder::class,
 
         ]);
     }

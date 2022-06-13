@@ -46,7 +46,7 @@ class AuthController extends Controller
 
         if( Auth::attempt(['email'=>$request->email, 'password'=>$request->password]) ) {
             $usuario = Auth::user();
-            $user = User::with(['roles.permissions.menu' => function($query) {
+            $user = User::with(['profile','roles.permissions.menu' => function($query) {
                 $query->orderBy('order', 'ASC');
             },])->where('id', $usuario->id)->first();
             //$user = Role::with('permissions.menu_p')->where('id', 1)->first();

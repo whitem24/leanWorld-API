@@ -100,7 +100,7 @@ class PermissionsTableSeeder extends Seeder
                 'id' => 8,
                 'description' => 'Categories',
                 'description_en'=>'Categories',
-                'description_es'=>'Catagorías',
+                'description_es'=>'Categorías',
                 'parent_id' => NULL,
                 'menu_id' => 1,
                 'created_at'=> Carbon::now(),

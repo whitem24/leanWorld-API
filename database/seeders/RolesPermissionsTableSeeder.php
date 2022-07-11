@@ -203,6 +203,12 @@ class RolesPermissionsTableSeeder extends Seeder
                 'created_at'=> Carbon::now(),
                 'updated_at'=> Carbon::now()
             ],
+            [
+                'permission_id'=>'26',
+                'role_id'=>'4',
+                'created_at'=> Carbon::now(),
+                'updated_at'=> Carbon::now()
+            ]
         ]);
     }
 }

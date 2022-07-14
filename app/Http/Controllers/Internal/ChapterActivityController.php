@@ -53,6 +53,7 @@ class ChapterActivityController extends Controller
             'chapter_id' => 'required|numeric',
             'fileActivity' => $request->input('activity_id') == "1" || $request->input('activity_id') == "5" || $request->input('activity_id') == "6" || $request->input('activity_id') == "7" || $request->input('activity_id') == "8" || $request->input('activity_id') == "16" || $request->input('activity_id') == "17" ? 'required' : '',
             'duration' => $request->input('activity_id') == "1" || $request->input('activity_id') == "5" ? 'required' : '',
+            'url' => $request->input('activity_id') == "3" || $request->input('activity_id') == "4" || $request->input('activity_id') == "9" || $request->input('activity_id') == "10" || $request->input('activity_id') == "11" ? 'required' : '',
 
             
         ]);
@@ -65,6 +66,7 @@ class ChapterActivityController extends Controller
             $description = $request->input('description');
             $activity_id = $request->input('activity_id');
             $duration = $request->input('duration');
+            $link = $request->input('url');
             $chapter_id = $request->input('chapter_id');
 
 
@@ -73,6 +75,8 @@ class ChapterActivityController extends Controller
             $activity->activity_id = $activity_id;
             $activity->chapter_id = $chapter_id;
             $activity->duration = $duration;
+            $activity->link = $link;
+            
 
             $activity->order = 1;
             $activity_order = Activity_chapter::where('chapter_id',$chapter_id)->orderBy('order', 'desc')->first();
@@ -80,29 +84,35 @@ class ChapterActivityController extends Controller
                 $activity->order = $activity_order->order + 1;  
             }
             //image
-            
-            $fileActivity = $request->input('fileActivity');
-            $extension = explode('/', explode(':', substr($fileActivity, 0, strpos($fileActivity, ';')))[1])[1];
-            $replace = substr($fileActivity, 0, strpos($fileActivity, ',')+1); 
-            // find substring fro replace here eg: data:image/png;base64,
-            $file = str_replace($replace, '', $fileActivity); 
-            $file = str_replace(' ', '+', $file); 
-            $fileName = time().'.'.$extension;
+            if($request->input('fileActivity')){
+                $fileActivity = $request->input('fileActivity');
+                $extension = explode('/', explode(':', substr($fileActivity, 0, strpos($fileActivity, ';')))[1])[1];
+                $replace = substr($fileActivity, 0, strpos($fileActivity, ',')+1); 
+                // find substring fro replace here eg: data:image/png;base64,
+                $file = str_replace($replace, '', $fileActivity); 
+                $file = str_replace(' ', '+', $file); 
+                $fileName = time().'.'.$extension;
 
-            
-            $activity->path = $fileName;
+                
+                $activity->path = $fileName;
+            }
 
             if($activity->save()){
-                if(Storage::disk('public')->put('/activities/files/'.$fileName, base64_decode($file))){
-                    /* Storage::disk('public')->delete('/activities/files/'.$activity->path); */
-                    DB::commit();
-                    return response()->json(['message' => 'Successfully created activity!'], 200);                
+                if($request->input('fileActivity')){
+                    if(Storage::disk('public')->put('/activities/files/'.$fileName, base64_decode($file))){
+                        /* Storage::disk('public')->delete('/activities/files/'.$activity->path); */
+                        DB::commit();
+                        return response()->json(['message' => 'Successfully created activity!'], 200);                
 
-                }else{
-                    DB::rollBack();
-                    return response()->json(['message' => 'An error ocurred loading the video, please try again'], 404);
+                    }else{
+                        DB::rollBack();
+                        return response()->json(['message' => 'An error ocurred loading the video, please try again'], 404);
 
+                    }
                 }
+                DB::commit();
+                return response()->json(['message' => 'Successfully created activity!'], 200); 
+               
             }
             DB::rollBack();
             return response()->json(['message' => 'activity was not created!'], 404);
@@ -151,7 +161,7 @@ class ChapterActivityController extends Controller
             'activity_id' => 'required|numeric',
             'fileActivity' => $required,
             'duration' => $request->input('activity_id') == "1" || $request->input('activity_id') == "5" ? 'required' : '',
-
+            'url' => $request->input('activity_id') == "3" || $request->input('activity_id') == "4" || $request->input('activity_id') == "9" || $request->input('activity_id') == "10" || $request->input('activity_id') == "11" ? 'required' : '',
             
         ]);
         
@@ -163,6 +173,7 @@ class ChapterActivityController extends Controller
             $description = $request->input('description');
             $activity_id = $request->input('activity_id');
             $duration = $request->input('duration');
+            $link = $request->input('url');
             $chapter_id = $request->input('chapter_id');
 
 
@@ -170,6 +181,7 @@ class ChapterActivityController extends Controller
             $activity->description = $description;
             $activity->activity_id = $activity_id;
             $activity->duration = $duration;
+            $activity->link = $link;
             $oldPath = $activity->path;
             /* $activity->order = 1; */
            /*  $activity_order = Activity_chapter::where('chapter_id',$chapter_id)->orderBy('order', 'desc')->first();

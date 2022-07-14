@@ -60,7 +60,6 @@ class PermissionsTableSeeder extends Seeder
                 'created_at'=> Carbon::now(),
                 'updated_at'=> Carbon::now(),
             ),
-
             4 =>
             array (
                 'id' => 5,
@@ -94,7 +93,6 @@ class PermissionsTableSeeder extends Seeder
                 'created_at'=> Carbon::now(),
                 'updated_at'=> Carbon::now(),
             ),
-
             7 =>
             array (
                 'id' => 8,
@@ -106,7 +104,6 @@ class PermissionsTableSeeder extends Seeder
                 'created_at'=> Carbon::now(),
                 'updated_at'=> Carbon::now(),
             ),
-
             8 =>
             array (
                 'id' => 9,
@@ -162,8 +159,6 @@ class PermissionsTableSeeder extends Seeder
                 'created_at'=> Carbon::now(),
                 'updated_at'=> Carbon::now(),
             ),
-            
-            
             13 =>
             array (
                 'id' => 14,
@@ -296,13 +291,23 @@ class PermissionsTableSeeder extends Seeder
                 'created_at'=> Carbon::now(),
                 'updated_at'=> Carbon::now(),
             ),
-            
             25 =>
             array (
                 'id' => 26,
                 'description' => 'Courses-enroll',
                 'description_en'=>'See Courses',
                 'description_es'=>'Ver Cursos',
+                'parent_id' => NULL,
+                'menu_id' => 1,
+                'created_at'=> Carbon::now(),
+                'updated_at'=> Carbon::now(),
+            ),
+            26 =>
+            array (
+                'id' => 27,
+                'description' => 'Courses-enroll-affiliate',
+                'description_en'=>'View Affiliate Courses',
+                'description_es'=>'Ver Cursos Afiliado',
                 'parent_id' => NULL,
                 'menu_id' => 1,
                 'created_at'=> Carbon::now(),

@@ -34,6 +34,7 @@ class CoursesEnrollmentController extends Controller
         })/* 
         ->whereIn('id', $ids) */
         ->orderBy('created_at')
+        ->where('published', 1)
         ->paginate($paginate);
        /*  return response()->json($courses, 200); */
         /* foreach($courses as $c => $course){

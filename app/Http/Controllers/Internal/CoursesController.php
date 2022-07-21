@@ -295,13 +295,44 @@ class CoursesController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
+    public function publish($id, $status){
+
+        $course = Course::with('roles_has_users')->find($id);
+        if($status==="0"){
+            $course->published = 1;
+            if($course->save()){
+                return response()->json(['message' => 'Successfully published Course!'], 200);
+            }            
+        }else{
+            foreach($course->roles_has_users as $r => $role_user_id){
+                $may_unpublish = 1;
+                $result = array();
+                if($role_user_id->role_id == 4 || $role_user_id->role_id == 5)  
+                {
+                    $result[$r] = 0;
+                }
+    
+            }
+            if(in_array(0, $result)){
+                $may_unpublish = 0;
+            }
+            if($may_unpublish == 0){
+                return response()->json(['error' => 'Este curso está siendo usado y no puede ser despublicado'], 400);
+            }
+            $course->published = 0;   
+            if($course->save()){
+                return response()->json(['message' => 'Successfully unpublished Course!'], 200);
+            } 
+        }
+
+    }
     public function destroy($id)
     {
         $course = Course::with('roles_has_users')->find($id);
         foreach($course->roles_has_users as $r => $role_user_id){
             $course->may_delete = 1;
             $result = array();
-            if($role_user_id->role_id == 4 || $role_user_id->role_id == 2)  
+            if($role_user_id->role_id == 4 || $role_user_id->role_id == 5)  
             {
                 $result[$r] = 0;
             }

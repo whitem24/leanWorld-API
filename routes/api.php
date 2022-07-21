@@ -173,6 +173,7 @@ Route::middleware('auth:api')->group(function() {
     Route::post('/courses','Internal\CoursesController@store');
     /* Route::get('/courses/{id}','Internal\CoursesController@show'); */
     Route::put('/courses/{id}','Internal\CoursesController@update');
+    Route::put('/courses/{id}/{status}','Internal\CoursesController@publish');
     Route::delete('/courses/{id}','Internal\CoursesController@destroy');
 
     //Chapters Routes

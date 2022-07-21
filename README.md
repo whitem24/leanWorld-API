@@ -8,9 +8,9 @@ Steps:
 2.- cd into your project
 3.- run composer install
 4.- run npm install
-5-. run php artisan key:generate
+5-. Create .env file from .env.example
 6.- Create an empty database for the application
-7.- Create .env file from .env.example
+7.- run php artisan key:generate
 8.- In the .env file, add database information to allow Laravel to connect to the database
 9.- run php artisan migrate:fresh --seed
 10.- run php artisan passport:install

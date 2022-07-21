@@ -41,7 +41,13 @@ class RolesTableSeeder extends Seeder
                 'updated_at'=> Carbon::now(),
             ),
             4 =>
-            array (            	
+            array (
+                'description'=>'Affiliate',
+                'created_at'=> Carbon::now(),
+                'updated_at'=> Carbon::now(),
+            ),
+            5 =>
+            array (
                 'description'=>'Guest',
                 'created_at'=> Carbon::now(),
                 'updated_at'=> Carbon::now(),

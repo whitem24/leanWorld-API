@@ -195,6 +195,9 @@ Route::middleware('auth:api')->group(function() {
 
     // Courses Enrollment Routes
     Route::get('/courses-list/{paginate?}/{search?}','Internal\CoursesEnrollmentController@index')/* ->middleware('throttle:coursesSearch') */;
-    
+
+    // Courses Affiliate Routes
+    Route::get('/courses-list-affiliate/{paginate?}/{search?}','Internal\CoursesAffiliateController@index');
+    Route::get('/percentage-gain/{permission?}','Internal\PercentageGainController@index');
 
 });

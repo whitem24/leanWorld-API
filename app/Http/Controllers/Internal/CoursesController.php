@@ -28,15 +28,22 @@ class CoursesController extends Controller
     public function index($user_id,$role,$paginate=null,$search=null) 
     {   
         //User_roles_courses
-        $role_user = Role_has_user::where('user_id', $user_id)->where('role_id', $role)->first();
-        $ids = User_role_course::where('user_role_id',$role_user->id)->pluck('course_id')->toArray();
-        $courses = Course::with('chapters','categories','roles_has_users','chapters.activities')
-        ->when($search, function  ($q) use ($search) { 
-            return $q->where(DB::raw('lower(title)'), 'like', '%' . strtolower(trim($search)) . '%');
-        })
-        ->whereIn('id', $ids)
-        ->orderBy('created_at')
-        ->paginate($paginate);
+        if ($role == 1) {
+            $courses = Course::with('chapters','categories','roles_has_users','chapters.activities')
+            ->orderBy('created_at')
+            ->paginate($paginate);
+        }else{
+            $role_user = Role_has_user::where('user_id', $user_id)->where('role_id', $role)->first();
+            $ids = User_role_course::where('user_role_id',$role_user->id)->pluck('course_id')->toArray();
+            $courses = Course::with('chapters','categories','roles_has_users','chapters.activities')
+            ->when($search, function  ($q) use ($search) { 
+                return $q->where(DB::raw('lower(title)'), 'like', '%' . strtolower(trim($search)) . '%');
+            })
+            ->whereIn('id', $ids)
+            ->orderBy('created_at')
+            ->paginate($paginate);
+        }
+       
        /*  return response()->json($courses, 200); */
         foreach($courses as $c => $course){
            /* return response()->json($course->chapters->documents, 200); */
@@ -252,7 +259,7 @@ class CoursesController extends Controller
 			$price = $request->input('price');
 			$discounted_price = $request->input('discount_price');
 			$video = $request->input('video');
-			$published = $request->input('published');
+			/* $published = $request->input('published'); */
 			$type_course_id = $request->input('type_course_id');
 
 			/* $course = Course::find($id); */
@@ -278,7 +285,7 @@ class CoursesController extends Controller
 			$course->price = $price;
 			$course->discounted_price = $discounted_price;
 			$course->video = $video;
-			$course->published = $published;
+			/* $course->published = $published; */
 			$course->type_course_id = $type_course_id;
 
             if($course->save()){

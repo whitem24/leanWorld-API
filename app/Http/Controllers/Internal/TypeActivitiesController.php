@@ -10,6 +10,7 @@ use DB;
 use App\Models\Type_activity;
 use App\Models\Activity;
 
+use Illuminate\Support\Facades\App;
 class TypeActivitiesController extends Controller
 {
     /**
@@ -48,6 +49,7 @@ class TypeActivitiesController extends Controller
     public function store(Request $request)
     {
         
+        App::setLocale($request->lang);
         $validator = Validator::make($request->all(), [
             'title' => 'required',
             'description' => 'required',     
@@ -113,6 +115,7 @@ class TypeActivitiesController extends Controller
     public function update(Request $request, $id)
     {
         
+        App::setLocale($request->lang);
         $type = Type_activity::find($id);
         $validator = Validator::make($request->all(), [
             'title' => 'required',

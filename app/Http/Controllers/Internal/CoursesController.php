@@ -16,6 +16,7 @@ use App\Models\Activity;
 use App\Models\User;
 use Illuminate\Support\Str;
 //use App\Http\Traits\UpdateSessionTrait;
+use Illuminate\Support\Facades\App;
 
 class CoursesController extends Controller
 {
@@ -103,6 +104,7 @@ class CoursesController extends Controller
         $request->merge([
             'discount_price' => 50
         ]); */
+        App::setLocale($request->lang);
         $validator = Validator::make($request->all(), [
             'title' => 'required|unique:courses,title,NULL,id,deleted_at,NULL',
 			'description' => 'required',
@@ -237,6 +239,7 @@ class CoursesController extends Controller
      */
     public function update(Request $request, $slug)
     {
+        App::setLocale($request->lang);
         $course = Course::where('slug', $slug)->first();
         $validator = Validator::make($request->all(), [
             'title' => 'required|unique:courses,title,'.$course->id.',id,deleted_at,NULL',

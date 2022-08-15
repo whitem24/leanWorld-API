@@ -18,6 +18,7 @@ class CreatePermissionsTable extends Migration
             $table->string('description')->unique();
             $table->string('description_en')/* ->unique() */;
             $table->string('description_es')/* ->unique() */;
+            $table->string('url')->unique();
             $table->unsignedBigInteger('parent_id')->nullable();
             $table->unsignedBigInteger('menu_id')->nullable();
             $table->foreign('parent_id')->references('id')->on('permissions')->onDelete('cascade');

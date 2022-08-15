@@ -8,6 +8,8 @@ use Validator;
 use DB;
 use App\Models\Type_course;
 
+use Illuminate\Support\Facades\App;
+
 class TypeCoursesController extends Controller
 {
     /**
@@ -45,6 +47,7 @@ class TypeCoursesController extends Controller
      */
     public function store(Request $request)
     {
+        App::setLocale($request->lang);
         $validator = Validator::make($request->all(), [
             'description' => 'required|unique:type_courses,description,NULL,id,deleted_at,NULL',
         ]);
@@ -106,6 +109,7 @@ class TypeCoursesController extends Controller
      */
     public function update(Request $request, $id)
     {
+        App::setLocale($request->lang);
         $type = Type_course::find($id);
         $unique = $type->description == $request->description ? '' : 'unique:type_courses,description,{$id},id,deleted_at,NULL';
         $validator = Validator::make($request->all(), [

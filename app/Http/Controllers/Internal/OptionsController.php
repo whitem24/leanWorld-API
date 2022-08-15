@@ -9,7 +9,7 @@ use Validator;
 use DB;
 use App\Models\Option;
 use App\Models\Question_option;
-
+use Illuminate\Support\Facades\App;
 
 class OptionsController extends Controller
 {
@@ -47,7 +47,7 @@ class OptionsController extends Controller
      */
     public function store(Request $request)
     {
-        
+        App::setLocale($request->lang);
         $validator = Validator::make($request->all(), [
             'order' => 'required',
         ]);
@@ -129,7 +129,7 @@ class OptionsController extends Controller
      */
     public function update(Request $request, $id)
     {
-        
+        App::setLocale($request->lang);
         $validator = Validator::make($request->all(), [
             'order' => 'required',
         ]);

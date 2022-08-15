@@ -147,6 +147,12 @@ return [
     |
     */
 
-    'attributes' => [],
+    'attributes' => [
+        'description' => App::isLocale('en') ? 'description' : 'descripción',
+        'description_es' => App::isLocale('en') ? 'Description spanish' : 'Descripción español',
+        'description_en' => App::isLocale('en') ? 'Description english' : 'Descripción inglés',
+        'email' => App::isLocale('en') ? 'email' : 'correo electrónico',
+    ],
+    
 
 ];

@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use Validator;
 use DB;
 use App\Models\Menu;
+use Illuminate\Support\Facades\App;
 
 class MenusController extends Controller
 {
@@ -43,6 +44,7 @@ class MenusController extends Controller
      */
     public function store(Request $request)
     {
+        App::setLocale($request->lang);
         $validator = Validator::make($request->all(), [
             'description' => 'required|unique:menus,description,NULL,id,deleted_at,NULL',
             'description_es' => 'required|unique:menus,description_es,NULL,id,deleted_at,NULL',
@@ -115,6 +117,7 @@ class MenusController extends Controller
      */
     public function update(Request $request, $id)
     {
+        App::setLocale($request->lang);
         $validator = Validator::make($request->all(), [
             'description' => 'required|unique:menus,description,'.$id.',id,deleted_at,NULL',
             'description_es' => 'required|unique:menus,description_es,'.$id.',id,deleted_at,NULL',

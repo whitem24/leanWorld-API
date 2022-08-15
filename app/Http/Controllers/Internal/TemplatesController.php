@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use Validator;
 use DB;
 use App\Models\Template;
+use Illuminate\Support\Facades\App;
 
 class TemplatesController extends Controller
 {
@@ -43,6 +44,7 @@ class TemplatesController extends Controller
      */
     public function store(Request $request)
     {
+        App::setLocale($request->lang);
         $validator = Validator::make($request->all(), [
             'title' => 'required|unique:templates,title,NULL,id,deleted_at,NULL',
             'description' => 'required',
@@ -114,6 +116,7 @@ class TemplatesController extends Controller
      */
     public function update(Request $request, $id)
     {
+        App::setLocale($request->lang);
         $validator = Validator::make($request->all(), [
             'title' => 'required|unique:templates,title,'.$id.',id,deleted_at,NULL',
             'description' => 'required',

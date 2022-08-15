@@ -8,6 +8,7 @@ use Validator;
 use DB;
 use App\Models\Role;
 use App\Models\Permission;
+use Illuminate\Support\Facades\App;
 
 class RolesController extends Controller
 {
@@ -49,6 +50,7 @@ class RolesController extends Controller
      */
     public function store(Request $request)
     {
+        App::setLocale($request->lang);
         $validator = Validator::make($request->all(), [
             'description' => 'required|unique:roles,description,NULL,id,deleted_at,NULL',
             'permissions' => 'required'
@@ -118,6 +120,7 @@ class RolesController extends Controller
      */
     public function update(Request $request, $id)
     {
+        App::setLocale($request->lang);
         $currentRole = Role::find($id);
         $unique = 'unique:roles,description';
        

@@ -8,6 +8,7 @@ use App\Http\Controllers\Controller;
 use Validator;
 use DB;
 use App\Models\Discount;
+use Illuminate\Support\Facades\App;
 
 class DiscountsController extends Controller
 {
@@ -47,7 +48,7 @@ class DiscountsController extends Controller
      */
     public function store(Request $request)
     {
-        
+        App::setLocale($request->lang);
         $validator = Validator::make($request->all(), [
             'description' => 'required|unique:discounts,description,NULL,id,deleted_at,NULL',
             'percent' => 'required|numeric',
@@ -121,7 +122,7 @@ class DiscountsController extends Controller
      */
     public function update(Request $request, $id)
     {
-        
+        App::setLocale($request->lang);
         $discount = Discount::find($id);
         $unique = $discount->description == $request->description ? '' : 'unique:discounts,description,{$id},id,deleted_at,NULL';
         $validator = Validator::make($request->all(), [

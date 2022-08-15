@@ -8,6 +8,8 @@ use Validator;
 use DB;
 use App\Models\Type_question;
 
+use Illuminate\Support\Facades\App;
+
 
 class TypeQuestionsController extends Controller
 {
@@ -48,6 +50,7 @@ class TypeQuestionsController extends Controller
     public function store(Request $request)
     {
         
+        App::setLocale($request->lang);
         $validator = Validator::make($request->all(), [
             'description' => 'required|unique:type_questions,description,NULL,id,deleted_at,NULL',
         ]);
@@ -112,6 +115,7 @@ class TypeQuestionsController extends Controller
     public function update(Request $request, $id)
     {
         
+        App::setLocale($request->lang);
         $type = Type_question::find($id);
         $unique = $type->description == $request->description ? '' : 'unique:type_questions,description,{$id},id,deleted_at,NULL';
         $validator = Validator::make($request->all(), [

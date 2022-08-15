@@ -6,6 +6,8 @@ use App\Http\Controllers\Controller;
 use Validator;
 use DB;
 use App\Models\Chapter;
+use Illuminate\Validation\Rule;
+use Illuminate\Support\Facades\App;
 
 class ChaptersController extends Controller
 {
@@ -45,11 +47,22 @@ class ChaptersController extends Controller
      */
     public function store(Request $request)
     {
-        
+        App::setLocale($request->lang);
+        $arrDescriptions = [];
+        $chapters = Chapter::where('course_id', $request->course_id)->get();
+        foreach ($chapters as $key => $value) {
+            $arrDescriptions[$key] = $value->description;
+        }
+        $messages = [
+            'not_in' => $request->lang=='en' ? 'The :attribute is already in use': 'La :attribute ya está en uso',
+        ];
         $validator = Validator::make($request->all(), [
-            'description' => 'required|unique:chapters,description,NULL,id,deleted_at,NULL',
+            'description' =>  [
+                'required',
+                Rule::notIn($arrDescriptions),
+            ],
             'course_id' => 'required|numeric',
-        ]);
+        ], $messages);
         if($validator->fails()){
             return response()->json([
                 'error' => $validator->messages()], 404);
@@ -112,12 +125,23 @@ class ChaptersController extends Controller
      */
     public function update(Request $request, $id)
     {
-        
+        App::setLocale($request->lang);
         $chapter = Chapter::find($id);
-        $unique = $chapter->description == $request->description ? '' : 'unique:chapters,description,{$id},id,deleted_at,NULL';
+        $arrDescriptions = [];
+        $chapters = Chapter::where('course_id', $chapter->course_id)->get();
+        foreach ($chapters as $key => $value) {
+            $arrDescriptions[$key] = $value->description;
+        }
+        $messages = [
+            'not_in' => $request->lang=='en' ? 'The :attribute is already in use': 'La :attribute ya está en uso',
+        ];
+        /* $unique = $chapter->description == $request->description ? '' : 'unique:chapters,description,{$id},id,deleted_at,NULL'; */
         $validator = Validator::make($request->all(), [
-            'description' => 'required|'.$unique
-        ]);
+            'description' => [
+                'required',
+                Rule::notIn($arrDescriptions),
+            ],
+        ], $messages);
         if($validator->fails()){
             return response()->json([
                 'error' => $validator->messages()], 404);

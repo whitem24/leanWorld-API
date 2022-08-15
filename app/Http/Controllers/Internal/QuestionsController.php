@@ -8,6 +8,7 @@ use Validator;
 use DB;
 use App\Models\Question;
 use App\Models\Type_question;
+use Illuminate\Support\Facades\App;
 
 class QuestionsController extends Controller
 {
@@ -49,6 +50,7 @@ class QuestionsController extends Controller
      */
     public function store(Request $request)
     {
+        App::setLocale($request->lang);
         $validator = Validator::make($request->all(), [
             'title' => 'required',
             'order' => 'required|numeric',
@@ -121,6 +123,7 @@ class QuestionsController extends Controller
      */
     public function update(Request $request, $id)
     {
+        App::setLocale($request->lang);
         $validator = Validator::make($request->all(), [
             'title' => 'required',
             'order' => 'required|numeric',

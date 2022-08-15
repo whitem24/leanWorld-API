@@ -8,6 +8,7 @@ use Validator;
 use DB;
 use App\Models\Activity;
 use App\Models\Type_activity;
+use Illuminate\Support\Facades\App;
 
 class ActivitiesController extends Controller
 {
@@ -49,6 +50,7 @@ class ActivitiesController extends Controller
      */
     public function store(Request $request)
     {
+        App::setLocale($request->lang);
         $validator = Validator::make($request->all(), [
             'title' => 'required|unique:activities,title,NULL,id,deleted_at,NULL',
             'description' => 'required',
@@ -118,6 +120,7 @@ class ActivitiesController extends Controller
      */
     public function update(Request $request, $id)
     {
+        App::setLocale($request->lang);
         $validator = Validator::make($request->all(), [
             'title' => 'required|unique:activities,title,'.$id.',id,deleted_at,NULL',
             'description' => 'required',

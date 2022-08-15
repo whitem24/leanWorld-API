@@ -9,6 +9,7 @@ use Illuminate\Support\Facades\Storage;
 use DB;
 /* use Illuminate\Support\Facades\DB; */
 use App\Models\Activity_chapter;
+use Illuminate\Support\Facades\App;
 
 class ChapterActivityController extends Controller
 {
@@ -46,7 +47,7 @@ class ChapterActivityController extends Controller
      */
     public function store(Request $request)
     {
-        
+        App::setLocale($request->lang);
         $validator = Validator::make($request->all(), [
             'description' => 'required',
             'activity_id' => 'required|numeric',
@@ -152,6 +153,7 @@ class ChapterActivityController extends Controller
      */
     public function update(Request $request, $id)
     {
+        App::setLocale($request->lang);
         $required = '';
         if ($request->input('fileActivity')) {
             $required = $request->input('activity_id') == "1" || $request->input('activity_id') == "5" || $request->input('activity_id') == "6" || $request->input('activity_id') == "7" || $request->input('activity_id') == "8" || $request->input('activity_id') == "16" || $request->input('activity_id') == "17" ? 'required' : '';

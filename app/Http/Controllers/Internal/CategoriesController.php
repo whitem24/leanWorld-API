@@ -7,7 +7,7 @@ use App\Http\Controllers\Controller;
 use Validator;
 use DB;
 use App\Models\Category;
-
+use Illuminate\Support\Facades\App;
 
 class CategoriesController extends Controller
 {
@@ -47,7 +47,7 @@ class CategoriesController extends Controller
      */
     public function store(Request $request)
     {
-        
+        App::setLocale($request->lang);
         $validator = Validator::make($request->all(), [
             'description' => 'required|unique:categories,description,NULL,id,deleted_at,NULL',
         ]);
@@ -111,7 +111,7 @@ class CategoriesController extends Controller
      */
     public function update(Request $request, $id)
     {
-        
+        App::setLocale($request->lang);
         $category = Category::find($id);
         $unique = $category->description == $request->description ? '' : 'unique:categories,description,{$id},id,deleted_at,NULL';
         $validator = Validator::make($request->all(), [

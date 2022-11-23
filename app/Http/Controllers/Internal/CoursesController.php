@@ -158,17 +158,17 @@ class CoursesController extends Controller
                 //User_roles_courses
                 $user_id = $request->input('user_id');
                 $role = $request->input('role');
-                if($role != 5){
+                if($role != 6){
                     $active = $role;
                     $role_user = Role_has_user::where('user_id', $user_id)->where('role_id', $role)->first();
 
                 }else{
                     $active = 3;
-                    $role_user = Role_has_user::where('user_id', $user_id)->where('role_id', 3)->first();
+                    $role_user = Role_has_user::where('user_id', $user_id)->where('role_id', $active)->first();
                     if(!$role_user)                
                         $role_user = new Role_has_user;
                         $role_user->user_id = $user_id;
-                        $role_user->role_id = 3;
+                        $role_user->role_id = $active;
                         $role_user->save(); 
                     
                 

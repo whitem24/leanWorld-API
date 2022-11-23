@@ -195,6 +195,7 @@ Route::middleware('auth:api')->group(function() {
 
     // Courses Enrollment Routes
     Route::get('/courses-list/{paginate?}/{search?}','Internal\CoursesEnrollmentController@index')/* ->middleware('throttle:coursesSearch') */;
+    Route::get('/my-courses/{user_id}/{paginate?}/{search?}','Internal\CoursesEnrollmentController@my_courses');
 
     // Courses Affiliate Routes
     Route::get('/courses-list-affiliate/{paginate?}/{search?}','Internal\CoursesAffiliateController@index');

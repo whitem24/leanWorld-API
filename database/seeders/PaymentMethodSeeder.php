@@ -1,12 +1,12 @@
 <?php
 
 namespace Database\Seeders;
-
 use Carbon\Carbon;
 use Illuminate\Support\Facades\DB;
+
 use Illuminate\Database\Seeder;
 
-class UsersRolesTableSeeder extends Seeder
+class PaymentMethodSeeder extends Seeder
 {
     /**
      * Run the database seeds.
@@ -15,43 +15,49 @@ class UsersRolesTableSeeder extends Seeder
      */
     public function run()
     {
-        DB::table('roles_has_users')->insert([
+        DB::table('payment_methods')->insert([
             [
-                'user_id'=>'1',
-                'role_id' => '1',
+                'description'=>'Paypal',
+                'description_en'=>'Paypal',
+                'fee' => '5',
                 'created_at'=> Carbon::now(),
                 'updated_at'=> Carbon::now()
             ],
             [
-                'user_id'=>'1',
-                'role_id'=>'3',
+                'description'=>'Zelle',
+                'description_en'=>'Paypal',
+                'fee' => null,
                 'created_at'=> Carbon::now(),
                 'updated_at'=> Carbon::now()
             ],
             [
-                'user_id'=>'1',
-                'role_id'=>'2',
+                'description'=>'Transferencia bancaria',
+                'description_en'=>'Bank tranfer',
+                'fee' => null,
                 'created_at'=> Carbon::now(),
                 'updated_at'=> Carbon::now()
             ],
             [
-                'user_id'=>'1',
-                'role_id'=>'4',
+                'description'=>'Tarjeta de crédito',
+                'description_en'=>'Credit Card',
+                'fee' => null,
                 'created_at'=> Carbon::now(),
                 'updated_at'=> Carbon::now()
             ],
             [
-                'user_id'=>'1',
-                'role_id'=>'5',
+                'description'=>'Pago móvil',
+                'description_en'=>'Pago móvil',
+                'fee' => null,
                 'created_at'=> Carbon::now(),
                 'updated_at'=> Carbon::now()
             ],
             [
-                'user_id'=>'1',
-                'role_id'=>'6',
+                'description'=>'Binance',
+                'description_en'=>'Binance',
+                'fee' => null,
                 'created_at'=> Carbon::now(),
                 'updated_at'=> Carbon::now()
-            ]
+            ],
         ]);
     }
 }

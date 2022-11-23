@@ -14,4 +14,10 @@ class Role_has_user extends Model
     {
         return $this->belongsToMany(Course::class, 'user_role_courses','user_role_id','course_id');
     }
+
+    public function payment_transactions()
+    {
+        return $this->hasMany(Payment_transaction::class);
+
+    }
 }

@@ -30,6 +30,7 @@ class CoursesAffiliateController extends Controller
             return $q->where(DB::raw('lower(title)'), 'like', '%' . strtolower(trim($search)) . '%');
         })
         ->orderBy('created_at')
+        ->where('published', 1)
         ->paginate($paginate);
         if($courses){
             return response()->json($courses, 200);

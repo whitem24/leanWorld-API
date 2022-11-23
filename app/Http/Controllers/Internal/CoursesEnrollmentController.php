@@ -67,6 +67,31 @@ class CoursesEnrollmentController extends Controller
         return response()->json(['message' => 'Courses not found!'], 404);
     }
 
+    public function my_courses($user_id,$paginate=null,$search=null) 
+    {   
+        //User_roles
+        /* $user_id = $request->input('user_id'); */
+        $role = 4;
+        $role_user = Role_has_user::where('user_id', $user_id)->where('role_id', $role)->first();
+
+        //User_roles_courses
+        $ids = User_role_course::where('user_role_id',$role_user->id)->pluck('course_id')->toArray(); 
+   
+        $courses = Course::with('chapters','categories','roles_has_users','chapters.activities')
+        ->when($search, function  ($q) use ($search) { 
+            return $q->where(DB::raw('lower(title)'), 'like', '%' . strtolower(trim($search)) . '%');
+        })
+        ->whereIn('id', $ids)
+        ->orderBy('created_at')
+        ->where('published', 1)
+        ->paginate($paginate);
+    
+        if($courses){
+            return response()->json($courses, 200);
+        }
+        return response()->json(['message' => 'Courses not found!'], 404);
+    }
+
     /**
      * Show the form for creating a new resource.
      *

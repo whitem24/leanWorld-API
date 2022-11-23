@@ -35,6 +35,7 @@ class DatabaseSeeder extends Seeder
           TypeActivitiesTableSeeder::Class,
           ActivitiesTableSeeder::class,
           ProfilestableSeeder::class,
+          PaymentMethodSeeder::class,
 
         ]);
     }
